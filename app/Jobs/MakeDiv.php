@@ -43,7 +43,7 @@ class MakeDiv implements ShouldQueue
         if($div){
             $user->notify(new DiveMade('Sucesso!','Div = ',$div));
         }
-        else
+        if($this->num2 == 0)
             $user->notify(new DiveMade('Erro!','Divisão por zero'));
     }
 }
