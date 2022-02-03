@@ -2,6 +2,7 @@
 
 use App\Jobs\ConvertCelsius;
 use App\Jobs\FindMaxPrime;
+use App\Jobs\MakeDiv;
 use App\Jobs\MakeSum;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -37,6 +38,12 @@ Route::get('/soma/{num1}/{num2}',function ($num1,$num2){
 Route::get('/celsius/{farenheit}',function ($farenheit){
 
     ConvertCelsius::dispatch($farenheit);
+    return 'O calculo será realizado em fila';
+});
+
+Route::get('/makeDiv/{num1}/{num2}',function ($num1,$num2){
+
+    MakeDiv::dispatch($num1,$num2,auth()->id());
     return 'O calculo será realizado em fila';
 });
 
