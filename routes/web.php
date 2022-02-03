@@ -1,5 +1,7 @@
 <?php
 
+use App\Jobs\FindMaxPrime;
+use App\Jobs\MakeSum;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -19,6 +21,24 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/signin', [AuthController::class, 'signin'])->name('signin');
 Route::post('/signup', [AuthController::class, 'signup'])->name('signup');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/primo/{limit}',function ($limit){
+
+    FindMaxPrime::dispatch($limit,auth()->id());
+    return 'O calculo será realizado em fila';
+});
+
+Route::get('/soma/{num1}/{num2}',function ($num1,$num2){
+
+    MakeSum::dispatch($num1,$num2);
+    return 'O calculo será realizado em fila';
+});
+
+Route::get('/notifications',function (){
+   $user = auth()->user();
+   foreach($user->unreadNotifications as $notification){
+       echo '<h3> '. $notification->data['description'] . ' </h3>';
+   }
+});
 
 Route::get('dashboard', function () {
     return view('dashboard');
