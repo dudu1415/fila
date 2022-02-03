@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\ConvertCelsius;
 use App\Jobs\FindMaxPrime;
 use App\Jobs\MakeSum;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,12 @@ Route::get('/primo/{limit}',function ($limit){
 Route::get('/soma/{num1}/{num2}',function ($num1,$num2){
 
     MakeSum::dispatch($num1,$num2);
+    return 'O calculo será realizado em fila';
+});
+
+Route::get('/celsius/{farenheit}',function ($farenheit){
+
+    ConvertCelsius::dispatch($farenheit);
     return 'O calculo será realizado em fila';
 });
 
